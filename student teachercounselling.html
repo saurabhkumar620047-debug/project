@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Counselling Appointment Scheduler</title>
+    <style>
+      /* GENERAL STYLING */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f7fc;
+        color: #263247;
+        line-height: 1.6;
+      } /* HEADER */
+      header {
+        background: #173b70;
+        color: white;
+        padding: 18px 7%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+      .logo {
+        font-size: 25px;
+        font-weight: bold;
+      }
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      nav a:hover {
+        color: #9edcff;
+      } /* HERO SECTION */
+      .hero {
+        min-height: 400px;
+        padding: 70px 8%;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(120deg, #173b70, #3284bd);
+        color: white;
+      }
+      .hero-content {
+        max-width: 650px;
+      }
+      .hero h1 {
+        font-size: clamp(32px, 5vw, 48px);
+        margin-bottom: 20px;
+      }
+      .hero p {
+        font-size: 18px;
+        margin-bottom: 30px;
+      }
+      .btn {
+        display: inline-block;
+        background: white;
+        color: #173b70;
+        padding: 13px 24px;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: bold;}
+    .btn:hover {
+        background: #e2f2ff;
+      } /* FEATURE CARDS */
+      .features {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+        padding: 45px 7%;
+      }
+      .feature-card,
+      .staff-card {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+        text-align: center;
+      }
+      .feature-card h3 {
+        color: #173b70;
+        margin-bottom: 10px;
+      } /* COMMON SECTIONS */
+      .section {
+        padding: 55px 7%;
+        text-align: center;
+      }
+      .section h2 {
+        color: #173b70;
+        font-size: 30px;
+        margin-bottom: 8px;
+      }
+      .subtitle {
+        color: #64748b;
+        margin-bottom: 30px;
+      } /* COUNSELLORS */
+      .staff-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+      .avatar {
+        font-size: 48px;
+        margin-bottom: 10px;
+      }
+      .staff-card h3 {
+        color: #173b70;
+        margin-bottom: 8px;
+      }
+      .staff-card p {
+        margin-bottom: 10px;
+      }
+      button {
+        background: #2166ad;
+        color: white;
+        border: none;
+        padding: 11px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 15px;
+      }
+      button:hover {
+        background: #154778;
+      } /* BOOKING FORM */
+      .booking-section {
+        background: #eaf2fb;
+      }
+      form {
+        max-width: 600px;
+        margin: auto;
+        padding: 30px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+        text-align: left;
+      }
+      form label {
+        display: block;
+        font-weight: bold;
+        margin: 15px 0 6px;
+      }
+      form input,
+      form select,
+      form textarea,
+      .history-search input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        font-size: 15px;
+        background: white;
+      }
+      form input:focus,
+      form select:focus,
+      form textarea:focus {
+        outline: 2px solid #3284bd;
+        outline-offset: 1px;
+      }
+      .submit-btn {
+        width: 100%;
+        margin-top: 22px;
+        padding: 14px;
+        background: #173b70;
+        font-weight: bold;
+      }
+      #message {
+        margin-top: 18px;
+        font-weight: bold;
+      } /* APPOINTMENT HISTORY */
+      .history-search {
+        display: flex;
+        gap: 12px;
+        max-width: 600px;
+        margin: 0 auto 25px;
+      }
+      .history-search button {
+        white-space: nowrap;
+      }
+      .appointment-card {
+        max-width: 700px;
+        margin: 15px auto;
+        padding: 22px;
+        text-align: left;
+        background: white;
+        border-radius: 10px;
+        border-left: 5px solid #2166ad;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+        overflow-wrap: anywhere;
+      }
+      .appointment-card h3 {
+        color: #173b70;
+      }
+      .appointment-card p {
+        margin: 7px 0;
+      }
+      .status {
+        display: inline-block;
+        margin: 8px 0;
+        padding: 4px 10px;
+        background: #d9fbe5;
+        color: #17653a;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: bold;
+      }
+      .cancelled-status {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+      .cancel-btn {
+        background: #c0392b;
+        margin-top: 12px;
+      }
+      .cancel-btn:hover {
+        background: #922b21;
+      }
+      .empty-message {
+        color: #64748b;
+        margin: 20px;
+      } /* FOOTER */
+      footer {
+        background: #173b70;
+        color: white;
+        padding: 25px;
+        text-align: center;
+      } /* RESPONSIVE DESIGN */
+      @media (max-width: 800px) {
+        header {
+          flex-direction: column;
+        }
+        nav {
+          justify-content: center;
+        }
+        .features,
+        .staff-container {
+          grid-template-columns: 1fr;
+        }
+        .history-search {
+          flex-direction: column;
+        }
+      }
+      @media (max-width: 480px) {
+        .hero {
+          padding: 45px 6%;
+        }
+        .section {
+          padding: 40px 5%;
+        }
+        form {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header>
+      <div class="logo">🎓 StudentCare</div>
+      <nav>
+        <a href="#home">Home</a> <a href="#staff">Counsellors</a>
+        <a href="#booking">Book Appointment</a>
+        <a href="#history">My Appointments</a>
+      </nav>
+    </header>
+    <!-- HOME SECTION -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <h1>Your Well-being Matters</h1>
+        <p>
+          Connect with authorized campus counsellors. Schedule an appointment
+          and take a positive step toward your well-being.
+        </p>
+        <a href="#booking" class="btn"> Book an Appointment </a>
+      </div>
+    </section>
+    <!-- FEATURES -->
+    <section class="features">
+      <div class="feature-card">
+        <h3>🔒 Confidential</h3>
+        <p>
+          Counselling information should be accessible only to authorized
+          people.
+        </p>
+      </div>
+      <div class="feature-card">
+        <h3>📅 Easy Booking</h3>
+        <p>Select an available date and time for your appointment.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🔔 Appointment Tracking</h3>
+        <p>View your upcoming appointments and their status.</p>
+      </div>
+    </section>
+    <!-- COUNSELLOR SECTION -->
+    <section class="section" id="staff">
+      <h2>Our Counsellors</h2>
+      <p class="subtitle">Choose a counsellor for your appointment.</p>
+      <div class="staff-container">
+        <div class="staff-card">
+          <div class="avatar">👩‍⚕️</div>
+          <h3>Dr. Priya Sharma</h3>
+          <p>Academic Counsellor</p>
+          <p>Monday - Friday</p>
+          <button type="button" onclick="selectCounsellor('Dr. Priya Sharma')">
+            Select Counsellor
+          </button>
+        </div>
+        <div class="staff-card">
+          <div class="avatar">👨‍⚕️</div>
+          <h3>Dr. Rahul Verma</h3>
+          <p>Student Support Counsellor</p>
+          <p>Monday - Saturday</p>
+          <button type="button" onclick="selectCounsellor('Dr. Rahul Verma')">
+            Select Counsellor
+          </button>
+        </div>
+        <div class="staff-card">
+          <div class="avatar">👩‍💼</div>
+          <h3>Ms. Anjali Singh</h3>
+          <p>Career Counsellor</p>
+          <p>Tuesday - Friday</p>
+          <button type="button" onclick="selectCounsellor('Ms. Anjali Singh')">
+            Select Counsellor
+          </button>
+        </div>
+      </div>
+    </section>
+    <!-- APPOINTMENT BOOKING -->
+    <section class="section booking-section" id="booking">
+      <h2>Book Your Appointment</h2>
+      <p class="subtitle">Complete the form to request an appointment.</p>
+      <form id="appointmentForm">
+        <label for="studentName">Student Name</label>
+        <input
+          type="text"
+          id="studentName"
+          placeholder="Enter your name"
+          required
+        />
+        <label for="studentId">Student ID</label>
+        <input
+          type="text"
+          id="studentId"
+          placeholder="Enter your student ID"
+          required
+        />
+        <label for="counsellor">Choose Counsellor</label>
+        <select id="counsellor" required>
+          <option value="">Select a counsellor</option>
+          <option value="Dr. Priya Sharma">Dr. Priya Sharma</option>
+          <option value="Dr. Rahul Verma">Dr. Rahul Verma</option>
+          <option value="Ms. Anjali Singh">Ms. Anjali Singh</option>
+        </select>
+        <label for="category">Appointment Category</label>
+        <select id="category" required>
+          <option value="">Choose a category</option>
+          <option>Academic Guidance</option>
+          <option>Career Guidance</option>
+          <option>Personal Support</option>
+          <option>Stress Management</option>
+          <option>Other</option>
+        </select>
+        <label for="date">Appointment Date</label>
+        <input type="date" id="date" required />
+        <label for="time">Appointment Time</label>
+        <select id="time" required>
+          <option value="">Select a time slot</option>
+          <option>10:00 AM</option>
+          <option>11:00 AM</option>
+          <option>12:00 PM</option>
+          <option>02:00 PM</option>
+          <option>03:00 PM</option>
+          <option>04:00 PM</option>
+        </select>
+        <label for="reason"> Reason for Appointment (Optional) </label>
+        <textarea
+          id="reason"
+          rows="4"
+          placeholder="Briefly describe your concern"
+        >
+        </textarea>
+        <button type="submit" class="submit-btn">Book Appointment</button>
+      </form>
+      <p id="message" role="status" aria-live="polite"></p>
+    </section>
+    <!-- APPOINTMENT HISTORY -->
+    <section class="section" id="history">
+      <h2>My Appointments</h2>
+      <p class="subtitle">
+        Enter your Student ID to view appointments saved in this browser.
+      </p>
+      <div class="history-search">
+        <input
+          type="text"
+          id="searchStudentId"
+          placeholder="Enter your Student ID"
+        />
+        <button type="button" onclick="showAppointments()">
+          View Appointments
+        </button>
+      </div>
+      <div id="appointmentHistory"></div>
+    </section>
+    <!-- FOOTER -->
+    <footer>
+      <p>© 2026 StudentCare | Student Counselling Appointment Scheduler</p>
+      <p>Student support and appointment management.</p>
+    </footer>
+    <script>
+      // STORAGE const STORAGE_KEY = "studentCareAppointments"; const form = document.getElementById("appointmentForm"); const dateInput = document.getElementById("date"); const message = document.getElementById("message"); // GET SAVED APPOINTMENTS function getAppointments() { try { const data = JSON.parse( localStorage.getItem(STORAGE_KEY) || "[]" ); return Array.isArray(data) ? data : []; } catch { return []; } } // SAVE APPOINTMENTS function saveAppointments(appointments) { localStorage.setItem( STORAGE_KEY, JSON.stringify(appointments) ); } // SET MINIMUM DATE TO TODAY function setMinimumDate() { const today = new Date(); const localDate = new Date( today.getTime() - today.getTimezoneOffset() * 60000 ).toISOString().split("T")[0]; dateInput.min = localDate; } setMinimumDate(); // SELECT COUNSELLOR function selectCounsellor(name) { document.getElementById("counsellor").value = name; document.getElementById("booking").scrollIntoView({ behavior: "smooth" }); } // BOOK APPOINTMENT form.addEventListener("submit", function(event) { event.preventDefault(); const studentName = document.getElementById("studentName").value.trim(); const studentId = document.getElementById("studentId").value.trim(); const counsellor = document.getElementById("counsellor").value; const category = document.getElementById("category").value; const date = dateInput.value; const time = document.getElementById("time").value; const reason = document.getElementById("reason").value.trim(); // VALIDATE REQUIRED FIELDS if ( !studentName || !studentId || !counsellor || !category || !date || !time ) { message.textContent = "Please complete all required fields."; return; } // VALIDATE DATE const selectedDate = new Date(date + "T00:00:00"); const today = new Date(); today.setHours(0, 0, 0, 0); if (selectedDate < today) { message.textContent = "Please select today or a future date."; return; } const appointments = getAppointments(); // CHECK WHETHER THE SLOT IS ALREADY BOOKED const slotTaken = appointments.some(function(appointment) { return ( appointment.counsellor === counsellor && appointment.date === date && appointment.time === time && appointment.status === "Booked" ); }); if (slotTaken) { message.textContent = "This slot is already booked. Please choose another time."; return; } // CREATE APPOINTMENT const appointment = { id: Date.now().toString(), studentName: studentName, studentId: studentId, counsellor: counsellor, category: category, date: date, time: time, reason: reason, status: "Booked", createdAt: new Date().toISOString() }; // SAVE APPOINTMENT appointments.push(appointment); saveAppointments(appointments); message.textContent = "Appointment booked successfully!"; // RESET FORM form.reset(); setMinimumDate(); // DISPLAY UPDATED HISTORY document.getElementById("searchStudentId").value = studentId; showAppointments(); }); // DISPLAY APPOINTMENT HISTORY function showAppointments() { const searchId = document .getElementById("searchStudentId") .value.trim().toLowerCase(); const history = document.getElementById("appointmentHistory"); history.replaceChildren(); if (!searchId) { history.textContent = "Please enter your Student ID."; return; } const appointments = getAppointments().filter( function(appointment) { return appointment.studentId.toLowerCase() === searchId; } ); if (appointments.length === 0) { const empty = document.createElement("p"); empty.className = "empty-message"; empty.textContent = "No appointments found for this Student ID."; history.appendChild(empty); return; } // SORT APPOINTMENTS BY DATE AND TIME appointments.sort(function(a, b) { return (a.date + a.time).localeCompare( b.date + b.time ); }); // CREATE APPOINTMENT CARDS appointments.forEach(function(appointment) { const card = document.createElement("div"); card.className = "appointment-card"; const heading = document.createElement("h3"); heading.textContent = appointment.counsellor; const status = document.createElement("span"); status.className = "status"; status.textContent = appointment.status; if (appointment.status === "Cancelled") { status.classList.add("cancelled-status"); } card.append(heading, status); // APPOINTMENT DETAILS const details = [ ["Student", appointment.studentName], ["Category", appointment.category], ["Date", appointment.date], ["Time", appointment.time], ["Reason", appointment.reason || "Not provided"] ]; details.forEach(function([label, value]) { const paragraph = document.createElement("p"); const strong = document.createElement("strong"); strong.textContent = label + ": "; paragraph.append( strong, document.createTextNode(value) ); card.appendChild(paragraph); }); // CANCELLATION BUTTON if (appointment.status === "Booked") { const cancelButton = document.createElement("button"); cancelButton.className = "cancel-btn"; cancelButton.textContent = "Cancel Appointment"; cancelButton.addEventListener("click", function() { cancelAppointment(appointment.id); }); card.appendChild(cancelButton); } history.appendChild(card); }); } // CANCEL APPOINTMENT function cancelAppointment(id) { const confirmed = window.confirm( "Are you sure you want to cancel this appointment?" ); if (!confirmed) { return; } const appointments = getAppointments(); const updatedAppointments = appointments.map( function(appointment) { if (appointment.id === id) { return { ...appointment, status: "Cancelled" }; } return appointment; } ); saveAppointments(updatedAppointments); showAppointments(); }
+    </script>
+  </body>
+</html>
